@@ -2,8 +2,8 @@
 
 All notable changes to the "hosts-helper" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
+## [Released]
 
 - Initial release
+- Support defining user hosts
+- Support switching system hosts

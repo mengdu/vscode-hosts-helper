@@ -1,62 +1,126 @@
 {
-  "name": "hosts-helper",
-	"displayName": "Hosts Editing Helper",
-	"description": "A helper for editing hosts files.",
-	"publisher": "lanyue",
-	"version": "0.1.0",
-	"main": "./out/extension.js",
-	"engines": {
-		"vscode": "^1.72.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"onView:hosts-tree-view",
-    "onCommand:hosts-helper.helloWorld"
-	],
-	"github": "https://github.com/mengdu/vscode-database-bench",
-	"repository": {
-		"type": "https",
-		"url": "git+https://github.com/mengdu/vscode-database-bench"
-	},
-	"license": "MIT",
-	"contributes": {
-		"views": {
-			"explorer": [
-				{
-					"id": "hosts-tree-view",
-					"name": "Hosts Helper",
-					"icon": "$(server)"
-				}
-			]
-		},
-		"commands": [
-			{
-				"command": "hosts-helper.helloWorld",
-				"title": "Hello World"
-			}
-		]
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"pretest": "npm run compile && npm run lint",
-		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/vscode": "^1.72.0",
-		"@types/glob": "^7.1.3",
-		"@types/mocha": "^8.2.2",
-		"@types/node": "14.x",
-		"eslint": "^7.27.0",
-		"@typescript-eslint/eslint-plugin": "^4.26.0",
-		"@typescript-eslint/parser": "^4.26.0",
-		"glob": "^7.1.7",
-		"mocha": "^8.4.0",
-		"typescript": "^4.3.2",
-		"vscode-test": "^1.5.2"
-	}
+  "name": "hosts-switch-helper",
+  "displayName": "Hosts Switch Helper",
+  "description": "A helper for switch hosts files.",
+  "publisher": "lanyue",
+  "version": "0.1.0",
+  "icon": "media/logo.png",
+  "main": "./out/extension.js",
+  "engines": {
+    "vscode": "^1.50.0"
+  },
+  "files": [
+    "media",
+    "out"
+  ],
+  "preview": true,
+  "keywords": [
+    "hosts",
+    "switch-hosts",
+    "hosts-helper"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:hosts-tree-view"
+  ],
+  "github": "https://github.com/mengdu/vscode-hosts-helper",
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/mengdu/vscode-hosts-helper"
+  },
+  "license": "MIT",
+  "contributes": {
+    "views": {
+      "explorer": [
+        {
+          "id": "hosts-tree-view",
+          "name": "Hosts Helper",
+          "contextualTitle": "Hosts Helper",
+          "icon": "media/logo.svg"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "hosts-helper.new-hosts-file",
+        "title": "Add Hosts File",
+        "icon": "$(new-file)"
+      },
+      {
+        "command": "hosts-helper.remove-hosts-file",
+        "title": "Remove Hosts File",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "hosts-helper.refresh-hosts-file",
+        "title": "Refresh Hosts File",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "hosts-helper.apply-hosts-file",
+        "title": "Apply Hosts File",
+        "icon": "$(check)"
+      },
+      {
+        "command": "hosts-helper.append-apply-hosts-file",
+        "title": "Append Apply Hosts File",
+        "icon": "$(check-all)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "when": "view == hosts-tree-view",
+          "command": "hosts-helper.new-hosts-file",
+          "group": "navigation"
+        },
+        {
+          "when": "view == hosts-tree-view",
+          "command": "hosts-helper.refresh-hosts-file",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "when": "view == hosts-tree-view && viewItem == is-user",
+          "command": "hosts-helper.apply-hosts-file",
+          "group": "inline"
+        },
+        {
+          "when": "view == hosts-tree-view && viewItem == is-user",
+          "command": "hosts-helper.append-apply-hosts-file",
+          "group": "inline"
+        },
+        {
+          "when": "view == hosts-tree-view && viewItem == is-user",
+          "command": "hosts-helper.remove-hosts-file",
+          "group": "inline"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "publish": "npm run build && vsce publish --no-dependencies",
+    "build": "npm run compile && vsce package --no-dependencies",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.50.0",
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "14.x",
+    "eslint": "^7.27.0",
+    "@typescript-eslint/eslint-plugin": "^4.26.0",
+    "@typescript-eslint/parser": "^4.26.0",
+    "glob": "^7.1.7",
+    "mocha": "^8.4.0",
+    "typescript": "^4.3.2",
+    "vscode-test": "^1.5.2"
+  }
 }
