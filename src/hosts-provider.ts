@@ -57,6 +57,7 @@ const addHostsFile = async (name: string) => {
     throw new Error('Already exists!')
   }
   await promisify(writeFile)(filename, `# hosts:${name}\n`)
+  return filename
 }
 
 const removeFile = async (filename: string) => {
@@ -89,13 +90,14 @@ const register = (context: vscode.ExtensionContext) => {
     if (!name) {
       return
     }
-    await addHostsFile(name)
+    const filename = await addHostsFile(name)
+    vscode.commands.executeCommand('vscode.open', vscode.Uri.file(filename))
     provider.refresh()
   }))
 
   context.subscriptions.push(vscode.commands.registerCommand('hosts-helper.remove-hosts-file', async (e: Item) => {
     if (e && !e.isSystem) {
-      const result = await vscode.window.showInformationMessage(`Are you sure you delete \`${e.label}\``, { modal: true }, 'Confirm')
+      const result = await vscode.window.showInformationMessage(`Are you sure delete \`${e.label}\`?`, { modal: true }, 'Confirm')
       if (!result) return
       await removeFile(e.filename)
       provider.refresh()
@@ -151,8 +153,7 @@ class Item extends vscode.TreeItem {
 class HostsProvider implements vscode.TreeDataProvider<Item> {
   static register = register
 
-  constructor (readonly context: vscode.ExtensionContext) {
-  }
+  constructor (readonly context: vscode.ExtensionContext) {}
 
   private _event: vscode.EventEmitter<Item | undefined | null | void> = new vscode.EventEmitter<Item>()
   onDidChangeTreeData: vscode.Event<Item | undefined | null | void> = this._event.event

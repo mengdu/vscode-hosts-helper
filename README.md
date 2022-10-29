@@ -2,6 +2,9 @@
 
 A helper for switch hosts files.
 
+After installation, find it in the `Hosts Helper` tree view in the `explorer` panel.
+For easy viewing, you can also drag it to the `activitybar`.
+
 ![Usage](screenshot.gif)
 
 ## Development
