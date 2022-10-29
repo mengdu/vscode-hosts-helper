@@ -3,7 +3,7 @@
   "displayName": "Hosts Switch Helper",
   "description": "A helper for switch hosts files.",
   "publisher": "lanyue",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "icon": "media/logo.png",
   "main": "./out/extension.js",
   "engines": {
